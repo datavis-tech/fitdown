@@ -8,10 +8,7 @@ const contains = (line, symbol) => ~line.indexOf(symbol);
 const parsePoundage = (line) => +line.match(/[0-9]*lb/)[0].replace("lb", "");
 
 export const parse = (rawText) => {
-  const lines = rawText
-    .split("\n")
-    .map((line) => line.trim())
-    .filter((line) => line !== "");
+  const lines = rawText.split("\n").map((line) => line.trim());
 
   let exercise;
 
@@ -36,9 +33,15 @@ export const parse = (rawText) => {
       poundage = +numbersAfterAt[0];
 
       const row = { exercise, reps, poundage };
-      if (numbersAfterAt[0].length < afterAt.length) {
-        row.notes = afterAt.substring(numbersAfterAt[0].length);
+
+      const hasTextAfterNumbers = numbersAfterAt[0].length < afterAt.length;
+      if (hasTextAfterNumbers) {
+        const textAfterNumbers = afterAt
+          .substring(numbersAfterAt[0].length)
+          .trim();
+        row[exercise ? "notes" : "exercise"] = textAfterNumbers;
       }
+
       if (date) {
         row.date = date;
       }
@@ -49,6 +52,8 @@ export const parse = (rawText) => {
       date = formatDate(parseDate(line.replace("Workout", "").trim()));
     } else if (contains(line, "lb")) {
       rows.push({ exercise, notes: line, poundage: parsePoundage(line) });
+    } else if (line === "") {
+      exercise = null;
     } else {
       exercise = line;
     }

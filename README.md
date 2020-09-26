@@ -52,7 +52,21 @@ The first line of the group specifies the exercise, e.g. `Deadlift`.
 
 Subsequent lines indicate one set each, where the structure is `${reps}@${poundage}`. For example `5@185` means 5 reps at 185 pounds. This triggers on the `@` symbol.
 
-## Exercises with multiplied Sets & Reps
+## Single Line Exercises
+Example:
+```
+5@185 Deadlift
+```
+You can also define an entire exercise on a single line. The above example is equivalent to:
+
+```
+Deadlift
+5@185
+```
+
+However, be careful to include an empty line before the single line exercise, otherwise it will be grouped with the previous exercise.
+
+## Exercises with Multiplied Sets & Reps
 
 Example:
 ```

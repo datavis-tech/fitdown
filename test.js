@@ -3,30 +3,25 @@ const { parse } = require(".");
 
 describe("parse", function () {
   const squatSet = { exercise: "Squat", reps: 5, poundage: 165 };
-  const curlsSet = { exercise: "Curls", reps: 8, poundage: 30 };
+  const curlSet = { exercise: "Curl", reps: 8, poundage: 30 };
 
   const twoSquatSets = [squatSet, squatSet];
   const threeSquatSets = [squatSet, squatSet, squatSet];
   const fourSquatSets = [squatSet, squatSet, squatSet, squatSet];
 
   it("should parse an exercise with sets and reps", () => {
-    assert.deepEqual(
-      parse(`
-        Squat
-        5@165
-      `),
-      [squatSet]
-    );
-    assert.deepEqual(parse("Curls\n8@30"), [curlsSet]);
+    assert.deepEqual(parse("Squat\n5@165"), [squatSet]);
+    assert.deepEqual(parse("Curl\n8@30"), [curlSet]);
   });
 
   it("should ignore white space", () => {
-    assert.deepEqual(parse("  \n Curls  \n\n  8 @ 30  \n "), [curlsSet]);
+    assert.deepEqual(parse("  \n Curl  \n  8 @ 30  \n "), [curlSet]);
   });
 
   it("should parse multiple exercises", () => {
     assert.deepEqual(parse("Squat\n5@165\nSquat\n5@165"), twoSquatSets);
     assert.deepEqual(parse("Squat\n5@165\n\nSquat\n5@165"), twoSquatSets);
+    assert.deepEqual(parse("Squat\n5@165\n5@165"), twoSquatSets);
   });
 
   it("should parse an exercise with multiplier as 'x'", () => {
@@ -71,6 +66,32 @@ describe("parse", function () {
           notes: "Up to 145lb",
         },
       ]
+    );
+  });
+
+  it("should parse a single-line exercise", () => {
+    assert.deepEqual(parse("5@165 Squat"), [squatSet]);
+    assert.deepEqual(parse("8@30 Curl"), [curlSet]);
+  });
+
+  it("should parse mixed single-line and multi-line exercises", () => {
+    // This test demonstrates that if there is no blank line, the text is considered a note.
+    assert.deepEqual(
+      parse(`
+        Squat
+        5@165
+        8@30 Curl
+      `),
+      [squatSet, { exercise: "Squat", reps: 8, poundage: 30, notes: "Curl" }]
+    );
+    assert.deepEqual(
+      parse(`
+        Squat
+        5@165
+
+        8@30 Curl
+      `),
+      [squatSet, curlSet]
     );
   });
 });
