@@ -1,3 +1,8 @@
+import { timeParse, timeFormat } from "d3-time-format";
+
+const parseDate = timeParse("%B %d, %Y");
+const formatDate = timeFormat("%m/%d/%Y");
+
 const contains = (line, symbol) => ~line.indexOf(symbol);
 
 export const parse = (rawText) => {
@@ -7,6 +12,8 @@ export const parse = (rawText) => {
     .filter((line) => line !== "");
 
   let exercise;
+
+  let date;
 
   const rows = [];
 
@@ -30,9 +37,14 @@ export const parse = (rawText) => {
       if (numbersAfterAt[0].length < afterAt.length) {
         row.notes = afterAt.substring(numbersAfterAt[0].length);
       }
+      if (date) {
+        row.date = date;
+      }
       for (let i = 0; i < multiplier; i++) {
         rows.push(row);
       }
+    } else if (contains(line, "Workout")) {
+      date = formatDate(parseDate(line.replace("Workout", "").trim()));
     } else {
       exercise = line;
     }

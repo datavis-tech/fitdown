@@ -31,4 +31,10 @@ describe("parse", function () {
   it("should parse an exercise with multiplier as 'X'", () => {
     assert.deepEqual(parse("Squat\n4x5@165"), fourSquatSets);
   });
+
+  it("should parse a workout date", () => {
+    assert.deepEqual(parse("Workout September 16, 2020\nSquat\n5@165"), [
+      { ...squatSet, date: "09/16/2020" },
+    ]);
+  });
 });
