@@ -37,4 +37,34 @@ describe("parse", function () {
       { ...squatSet, date: "09/16/2020" },
     ]);
   });
+
+  it("should parse a loosely formatted exercise", () => {
+    assert.deepEqual(
+      parse(`
+        Snatch
+        Up to technique bar + 35lb each side
+      `),
+      [
+        {
+          exercise: "Snatch",
+          poundage: 35,
+          notes: "Up to technique bar + 35lb each side",
+        },
+      ]
+    );
+
+    assert.deepEqual(
+      parse(`
+        Clean and Jerk
+        Up to 145lb
+      `),
+      [
+        {
+          exercise: "Clean and Jerk",
+          poundage: 145,
+          notes: "Up to 145lb",
+        },
+      ]
+    );
+  });
 });

@@ -5,6 +5,8 @@ const formatDate = timeFormat("%m/%d/%Y");
 
 const contains = (line, symbol) => ~line.indexOf(symbol);
 
+const parsePoundage = (line) => +line.match(/[0-9]*lb/)[0].replace("lb", "");
+
 export const parse = (rawText) => {
   const lines = rawText
     .split("\n")
@@ -45,6 +47,8 @@ export const parse = (rawText) => {
       }
     } else if (contains(line, "Workout")) {
       date = formatDate(parseDate(line.replace("Workout", "").trim()));
+    } else if (contains(line, "lb")) {
+      rows.push({ exercise, notes: line, poundage: parsePoundage(line) });
     } else {
       exercise = line;
     }
