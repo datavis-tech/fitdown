@@ -10,7 +10,13 @@ describe("parse", function () {
   const fourSquatSets = [squatSet, squatSet, squatSet, squatSet];
 
   it("should parse an exercise with sets and reps", () => {
-    assert.deepEqual(parse("Squat\n5@165"), [squatSet]);
+    assert.deepEqual(
+      parse(`
+        Squat
+        5@165
+      `),
+      [squatSet]
+    );
     assert.deepEqual(parse("Curls\n8@30"), [curlsSet]);
   });
 
