@@ -13,7 +13,7 @@ export const parse = (rawText) => {
   lines.forEach((line) => {
     if (contains(line, "@")) {
       let reps, poundage, multiplier, notes;
-      const [beforeAt, afterAt] = line.split("@");
+      const [beforeAt, afterAt] = line.split("@").map((str) => str.trim());
       const beforeAtLowerCase = beforeAt.toLowerCase();
       if (contains(beforeAtLowerCase, "x")) {
         const [beforeX, afterX] = beforeAtLowerCase.split("x");
