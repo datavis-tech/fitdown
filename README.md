@@ -37,6 +37,40 @@ It triggers on the term "Workout", and requires this very specific date format.
 
 All exercises that follow a workout date line have that data associated with it.
 
+## Exercises with Sets & Reps
+Example:
+
+```
+Deadlift
+5@185
+5@255
+```
+
+This notation allows you to track a specific exercise and its sets and reps (repititions) with poundages.
+
+The first line of the group specifies the exercise, e.g. `Deadlift`.
+
+Subsequent lines indicate one set each, where the structure is `${reps}@${poundage}`. For example `5@185` means 5 reps at 185 pounds. This triggers on the `@` symbol.
+
+## Exercises with multiplied Sets & Reps
+
+Example:
+```
+Squat
+3x5@165
+```
+
+You can use a multiplier like `3x` or `4x` as a concise alternative to repeating the same sets. It triggers on `x` or `X`.
+
+The above example is equivalent to:
+
+```
+Squat
+5@165
+5@165
+5@165
+```
+
 ## Loosely Formatted Exercises
 Examples:
 ```
