@@ -9,8 +9,9 @@ export const parse = (rawText) => {
     if (contains(line, "@")) {
       let reps, poundage, multiplier, notes;
       const [beforeAt, afterAt] = line.split("@");
-      if (contains(beforeAt, "x")) {
-        const [beforeX, afterX] = beforeAt.toLowerCase().split("x");
+      const beforeAtLowerCase = beforeAt.toLowerCase();
+      if (contains(beforeAtLowerCase, "x")) {
+        const [beforeX, afterX] = beforeAtLowerCase.split("x");
         multiplier = +beforeX;
         reps = +afterX;
       } else {
@@ -19,11 +20,13 @@ export const parse = (rawText) => {
       }
       const numbersAfterAt = afterAt.match(/[0-9]*/);
       poundage = +numbersAfterAt[0];
+
+      const row = { exercise, reps, poundage };
       if (numbersAfterAt[0].length < afterAt.length) {
-        notes = afterAt.substring(numbersAfterAt[0].length).trim();
+        row.notes = afterAt.substring(numbersAfterAt[0].length).trim();
       }
       for (let i = 0; i < multiplier; i++) {
-        rows.push({ exercise, reps, poundage, notes });
+        rows.push(row);
       }
     } else {
       exercise = line.trim();
