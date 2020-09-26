@@ -71,6 +71,18 @@ Squat
 5@165
 ```
 
+## Notes
+
+Example:
+
+```
+Deadlift
+5@185
+5@255 TOUGH
+```
+
+You can add any text after a set to add notes to it. In this case the notes `TOUGH` are associated to the second Deadlift set.
+
 ## Loosely Formatted Exercises
 Examples:
 ```
