@@ -1,5 +1,5 @@
-# WeightliftingML
-Markup language and parser for weightlifting logs.
+# Fitdown
+Markup language and parser for weightlifting logs. A superset of [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
 The idea is to be able to derive structured data from concise workout notes taken on a smartphone.
 
