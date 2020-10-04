@@ -1,5 +1,5 @@
 {
-  "name": "weightlifting-ml",
+  "name": "fitdown",
   "version": "1.0.0",
   "description": "Markup language and parser for weightlifting logs.",
   "main": "dist/weightliftingML.js",
