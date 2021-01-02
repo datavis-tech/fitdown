@@ -3,7 +3,7 @@ Markup language and parser for fitness logs, mainly weightlifting. A superset of
 
 The idea is to be able to derive structured data from concise workout notes taken on a smartphone.
 
-Here's an example of a workout log in the WeightliftingML format:
+Here's an example of a workout log in the Fitdown format:
 
 ```
 Workout September 16, 2020
